@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="381.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuI">
+   <children>
+      <Button fx:id="btnSignDocumen" layoutX="14.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleBtnSignDocumen" text="Подписать документы" />
+      <Button fx:id="btnOpenMultiFiles" layoutX="13.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleBtnOpenMultiFiles" text="Выбрать файлы" />
+      <Button fx:id="btnSelectWorkCatalog" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleBtnSelectWorkCatalog" text="Выбрать рабочий каталог" />
+      <Button fx:id="btnOpenImgFile" layoutX="13.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleBtnOpenImgFile" text="Выбрать рисунок" />
+      <Button fx:id="btnConvertToPdf" layoutX="13.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleBtnConvertToPdf" text="Конвертировать в PDF" />
+      <TextArea fx:id="ivWorkCatalog" layoutX="185.0" layoutY="6.0" prefHeight="25.0" prefWidth="384.0" />
+      <ListView fx:id="lvFiles" layoutX="185.0" layoutY="53.0" prefHeight="209.0" prefWidth="384.0" />
+      <ImageView fx:id="ivFile" fitHeight="133.0" fitWidth="158.0" layoutX="19.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnGenerInventory" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handlebtnGenerInventory" text="Сформировать опись" />
+      <Button fx:id="btnClearFiles" layoutX="518.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleBtnClearFiles" text="Сброс" />
+      <Button fx:id="btnOpenPDFDir" layoutX="162.0" layoutY="270.0" mnemonicParsing="false" onAction="#handlebtnOpenDir" text="-&gt;Открыть папку" />
+      <Button fx:id="btnOpenSignDir" layoutX="162.0" layoutY="307.0" mnemonicParsing="false" onAction="#handlebtnOpenDir" text="-&gt;Открыть папку" />
+      <Button fx:id="btnOpenOpisDir" layoutX="162.0" layoutY="343.0" mnemonicParsing="false" onAction="#handlebtnOpenDir" text="-&gt;Открыть папку" />
+   </children>
+</AnchorPane>
