@@ -17,10 +17,10 @@
       <Button fx:id="btnConvertToPdf" layoutX="13.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleBtnConvertToPdf" text="Конвертировать в PDF" />
       <TextArea fx:id="ivWorkCatalog" layoutX="185.0" layoutY="6.0" prefHeight="25.0" prefWidth="384.0" />
       <ListView fx:id="lvFiles" layoutX="185.0" layoutY="53.0" prefHeight="209.0" prefWidth="384.0" />
-      <ImageView fx:id="imgFile" fitHeight="133.0" fitWidth="158.0" layoutX="14.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true"  />
+      <ImageView fx:id="imgFile" fitHeight="133.0" fitWidth="158.0" layoutX="14.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
 
       <Button fx:id="btnGenInventory" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleBtnGenInventory" text="Сформировать опись" />
-      <Button fx:id="btnClearFiles" layoutX="518.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleBtnClearFiles" text="Сброс" />
+      <Button fx:id="btnClearFiles" layoutX="397.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleBtnClearFiles" text="Удалить выделенные файлы" />
       <Button fx:id="btnOpenPDFDir" layoutX="162.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleBtnOpenDir" text="-&gt;Открыть папку" />
       <Button fx:id="btnOpenSignDir" layoutX="162.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleBtnOpenDir" text="-&gt;Открыть папку" />
       <Button fx:id="btnOpenOpisDir" layoutX="162.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleBtnOpenDir" text="-&gt;Открыть папку" />
