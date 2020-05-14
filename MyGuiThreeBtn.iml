@@ -9,7 +9,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JavaFX" level="project" />
-    <orderEntry type="library" name="pdfbox" level="project" />
     <orderEntry type="library" name="poi" level="project" />
+    <orderEntry type="library" name="pdfbox-2.0" level="project" />
   </component>
 </module>
