@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="pdfbox-2.0">
     <CLASSES>
-      <root url="file://C:/Program Files/JetBrains/MyLib/pdfbox-2.0.19" />
+      <root url="jar://D:/NokolaysDocs/LibraryJava/PDFbox_2.0.19/debugger-app-2.0.19.jar!/" />
+      <root url="jar://D:/NokolaysDocs/LibraryJava/PDFbox_2.0.19/pdfbox-app-2.0.19.jar!/" />
+      <root url="jar://D:/NokolaysDocs/LibraryJava/PDFbox_2.0.19/preflight-app-2.0.19.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://C:/Program Files/JetBrains/MyLib/pdfbox-2.0.19" recursive="false" />
   </library>
 </component>
