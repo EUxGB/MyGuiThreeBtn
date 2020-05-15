@@ -1,7 +1,13 @@
-import com.artofsolving.jodconverter.DocumentConverter;
-import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
-import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
-import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
+//import com.artofsolving.jodconverter.DocumentConverter;
+//import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
+//import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
+//import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
+
+
+import com.lowagie.text.Document;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.Paragraph;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,16 +16,24 @@ import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
+import javax.print.PrintService;
+import java.io.*;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class FXController {
 
@@ -126,35 +140,10 @@ public class FXController {
     }
 
     @FXML
-    private void handleBtnConvertToPdf(ActionEvent event) throws ConnectException {
-        //Creating the instance of OpenOfficeConnection and
-        //passing the port number to SocketOpenOfficeConnection constructor
-        System.out.println("start");
-        OpenOfficeConnection con = new SocketOpenOfficeConnection(8100);
-        System.out.println("connected");
-        //making the connection with openoffice server
-       // con.connect();
-        File[] filesDoc = new File[lvFiles.getItems().size()];
-        File[] filesPdf = new File[lvFiles.getItems().size()];
-        for (int i = 0; i < filesDoc.length; i++) {
-            filesDoc[i] = new File(lvFiles.getItems().get(i).toString());
+    private void handleBtnConvertToPdf(ActionEvent event) {
 
-            System.out.println(filesDoc[i] );
-            String fileNameDoc = filesDoc[i].getName();
-            //получае имя входного файла без расширения
-            String fileNameClear = fileNameDoc.substring(0, fileNameDoc.lastIndexOf('.'));
-            filesPdf[i] = new File(ivWorkCatalog.getText() +"\\"+ fileNameClear + ".pdf");
-            System.out.println(filesPdf[i] );
-            assert 0==0: "Connection is ...";
-            DocumentConverter converter = new OpenOfficeDocumentConverter(con);
-            System.out.println("great converter");
-            //passing both files objects
-            converter.convert(filesDoc[i], filesPdf[i]);
-            System.out.println("Конвертируем в Pdf");
 
-        }
-        con.disconnect();
-        System.out.println("disconnected");
+
 
     }
 
@@ -236,5 +225,117 @@ public class FXController {
         statusLabel.setText(s);
 
     }
+
+    public void convertDocPdf (String inputNameFile, String outputNameFile) {
+        POIFSFileSystem fs = null;
+        Document document = new Document();
+
+        try {
+            System.out.println("Starting the test");
+            fs = new POIFSFileSystem(new FileInputStream(inputNameFile));
+
+            //This class acts as the bucket that we throw all of the Word data structures into.
+            HWPFDocument doc = new HWPFDocument(fs);
+
+            WordExtractor we = new WordExtractor(doc);
+
+            OutputStream file = new FileOutputStream(new File(outputNameFile));
+
+            PdfWriter writer = PdfWriter.getInstance(document, file);
+
+            Range range = doc.getRange();
+            document.open();
+            writer.setPageEmpty(true);
+            document.newPage();
+            writer.setPageEmpty(true);
+
+            String[] paragraphs = we.getParagraphText();
+            for (int i = 0; i < paragraphs.length; i++) {
+
+                org.apache.poi.hwpf.usermodel.Paragraph pr = range.getParagraph(i);
+                // CharacterRun run = pr.getCharacterRun(i);
+                // run.setBold(true);
+                // run.setCapitalized(true);
+                // run.setItalic(true);
+                paragraphs[i] = paragraphs[i].replaceAll("\\cM?\r?\n", "");
+                System.out.println("Length:" + paragraphs[i].length());
+                System.out.println("Paragraph" + i + ": " + paragraphs[i].toString());
+
+                // add the paragraph to the document
+                document.add(new Paragraph(paragraphs[i]));
+            }
+
+            System.out.println("Document testing completed");
+        } catch (Exception e) {
+            System.out.println("Exception during test");
+            e.printStackTrace();
+        } finally {
+            // close the document
+            document.close();
+        }
+    }
+
+
+    public void convertDocPdf2  (String inputNameFile, String outputNameFile) {
+
+        String k=null;
+        OutputStream fileForPdf =null;
+        try {
+
+            String fileName= inputNameFile;
+            //Below Code is for .doc file
+            if(fileName.endsWith(".doc"))
+            {
+                HWPFDocument doc = new HWPFDocument(new FileInputStream(
+                        fileName));
+                WordExtractor we=new WordExtractor(doc);
+                k = we.getText();
+
+                fileForPdf = new FileOutputStream(new File(outputNameFile));
+                we.close();
+            }
+
+            //Below Code for
+
+            else if(fileName.endsWith(".docx"))
+            {
+                XWPFDocument docx = new XWPFDocument(new FileInputStream(
+                        fileName));
+                // using XWPFWordExtractor Class
+                XWPFWordExtractor we = new XWPFWordExtractor(docx);
+                k = we.getText();
+
+                fileForPdf = new FileOutputStream(new File(
+                        outputNameFile));
+                we.close();
+            }
+
+
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, fileForPdf);
+
+            document.open();
+
+            document.add(new Paragraph(k));
+
+
+
+            document.close();
+            fileForPdf.close();
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 }
 
